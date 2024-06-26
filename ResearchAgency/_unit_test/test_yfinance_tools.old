@@ -1,0 +1,24 @@
+import unittest
+from YFinanceTools import YFinanceTools  # Adjust the import path as necessary
+
+class TestYFinanceTools(unittest.TestCase):
+    def test_run(self):
+        # Initialize the tool with a sample ticker symbol
+        tool = YFinanceTools(ticker_symbol="MSFT")
+        
+        # Run the tool
+        result = tool.run()
+        
+        # Check that the result is a dictionary (basic validation)
+        self.assertIsInstance(result, dict)
+        
+        # Check that the dictionary contains expected keys
+        expected_keys = ["company_name", "stock_price", "market_cap", "52_week_high", "52_week_low", "dividend_yield", "pe_ratio", "eps"]
+        for key in expected_keys:
+            self.assertIn(key, result)
+        
+        # Print the result to see the output
+        print(result)
+
+if __name__ == '__main__':
+    unittest.main()

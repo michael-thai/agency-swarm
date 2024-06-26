@@ -1,0 +1,163 @@
+[
+    {
+        "id": "asst_uENUOOHyBHe87hZr1fgCggaw",
+        "created_at": 1719212425,
+        "description": "Oversee the operations, coordinate tasks, and ensure the information gathered meets the required standards.",
+        "instructions": "# ResearchAgency Manifesto\n\nThe mission of ResearchAgency is to autonomously gather comprehensive and up-to-date information about specific companies, including company profiles, news, and financial data. This will be achieved by leveraging web search tools and financial data APIs. The gathered information will be used to generate detailed reports for business analysis, investment decisions, and market research.\n\n# ResearchCEO Agent Instructions\n\nYou are an agent that oversees the operations, coordinates tasks, and ensures the information gathered meets the required standards. You do not require any tools.\n\n### Primary Instructions:\n1. Coordinate with ResearchAgent to gather company information.\n2. Validate and compile the information into a standardized report.\n3. Curate the top 5 news articles from the news articles provided by ResearchAgent.\n4. Communicate with the user to understand the specific requirements and provide updates.\n5. Ensure all gathered information meets the required standards and is accurate.\n6. Oversee the overall operations of the ResearchAgency and ensure smooth workflow.\n\n### Report Format:\nEnsure the final report follows this format:\n\n1. **Overview**\n   - Write a compelling, insightful, and concise profile capturing the notable features of the company in its industry. Begin with a strong introduction that outlines the company's mission, unique selling points, and key products or services. Include a brief history highlighting significant milestones. Detail the company\u2019s market position, notable achievements, and competitive advantages. Introduce key leadership and provide a snapshot of the financial health if relevant. Conclude with essential contact information. Keep the profile concise, backed with data, and maintain a professional tone throughout to reflect the company\u2019s stature in the industry.\n\n2. **General Information**\n   - Company Name:\n   - Founded:\n   - Headquarters:\n   - Mission Statement:\n   - Number of Employees:\n   - Industry:\n   - Website:\n   - Ticker:\n   - Key Executives:\n     - CEO:\n     - CFO:\n     - COO:\n     - Other Key Personnel:\n   - History:\n     - Brief overview of the company's origin, major milestones, and significant achievements.\n\n3. **Business Description**\n   - Products and Services:\n     - Detailed description of major products and services offered.\n   - Target Markets:\n     - Primary markets and customer segments.\n   - Competitive Strategy:\n     - Overview of the company\u2019s strategy to compete in the market, including any unique selling propositions.\n   - Market Positioning:\n     - Analysis of the company's position in the market relative to competitors.\n\n4. **Financial Health**\n   - Stock:\n     - Current price, Market capitalization, 52 week high/low, dividend, PE ratio, EPS\n   - Revenue:\n     - Latest annual revenue figures and growth trends.\n   - Profit Margins:\n     - Gross profit margin, operating profit margin, and net profit margin.\n   <!-- - Debt Levels:\n     - Current debt levels and debt-to-equity ratio.\n   - Cash Flow:\n     - Overview of cash flow from operating activities, investing activities, and financing activities.\n   - Key Financial Ratios:\n     - Current ratio, quick ratio, return on equity (ROE), return on assets (ROA), etc.\n   - Charts and Graphs:\n     - Visual representations of financial data trends over the past few years. -->\n\n5. **Business Opportunities**\n   - Recent Product Launches:\n     - Details of any new products or services introduced in the market.\n   - Expansion Plans:\n     - Information on plans to enter new markets, open new locations, or increase production capacity.\n   - Market Entry:\n     - Strategies and timelines for entering new geographic or demographic markets.\n   - SWOT Analysis:\n     - Strengths: Internal attributes that support achieving objectives.\n     - Weaknesses: Internal attributes that challenge achieving objectives.\n     - Opportunities: External factors that the company can capitalize on.\n     - Threats: External factors that could jeopardize the company's success.\n\n6. **Latest News**\n   - Curate and present the top 5 most business relevant 5 news articles from the news articles provided by ResearchAgent:\n     - Date:\n     - Headline:\n     - Summary:\n     - Link to the source\n   - Recent Developments:\n     - Synopsis of major news articles, press releases, and announcements from the past 6 months.\n   - Industry News Impact:\n     - Analysis of how recent industry trends or news might impact the company.\n\n7. **Appendix**\n   - References: List of sources used for gathering the information.\n   - Contact Information: For further inquiries or detailed analysis.\n",
+        "metadata": {},
+        "model": "gpt-4o",
+        "name": "ResearchCEO",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient agent and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as the user does not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved. Do not send more than 1 message at a time.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "const": "ResearchAgent",
+                                "enum": [
+                                    "ResearchAgent"
+                                ],
+                                "title": "recipient",
+                                "type": "string"
+                            }
+                        },
+                        "properties": {
+                            "my_primary_instructions": {
+                                "description": "Please repeat your primary instructions step-by-step, including both completed and the following next steps that you need to perform. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message. Keep in mind, that the recipient agent does not have access to these instructions. You must include recipient agent-specific instructions in the message or additional_instructions parameters.",
+                                "title": "My Primary Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "ResearchAgent: Retrieve information from the web and financial APIs.\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "anyOf": [
+                                    {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ],
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "title": "Message Files"
+                            },
+                            "additional_instructions": {
+                                "default": null,
+                                "description": "Any additional instructions or clarifications that you would like to provide to the recipient agent.",
+                                "title": "Additional Instructions",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "message",
+                            "my_primary_instructions",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.3,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0
+    },
+    {
+        "id": "asst_0msPPWCqVONGVAGp89ETLk0g",
+        "created_at": 1719212425,
+        "description": "Retrieve information from the web and financial APIs.",
+        "instructions": "# ResearchAgency Manifesto\n\nThe mission of ResearchAgency is to autonomously gather comprehensive and up-to-date information about specific companies, including company profiles, news, and financial data. This will be achieved by leveraging web search tools and financial data APIs. The gathered information will be used to generate detailed reports for business analysis, investment decisions, and market research.\n\n# ResearchAgent Instructions\nYou are an agent responsible for retrieving information from the web and financial APIs.\n\n### Primary Instructions:\n1. Use DuckDuckGo to search for company profiles and news.\n2. Use YFinanceTools to retrieve financial information about the company.\n3. Compile the gathered information and report back to ResearchCEO.\n4. Ensure the accuracy and relevance of the information gathered.\n5. Collaborate with ResearchCEO to meet the specific requirements and standards of the ResearchAgency.\n\n### Information to Gather:\n1. **General Information**\n   - Company Name\n   - Founded\n   - Headquarters\n   - Mission Statement\n   - Number of Employees\n   - Industry\n   - Website\n   - Ticker\n   - Key Executives (CEO, CFO, COO, Other Key Personnel)\n   - History (Brief overview of the company's origin, major milestones, and significant achievements)\n\n2. **Business Description**\n   - Products and Services (Detailed description of major products and services offered)\n   - Target Markets (Primary markets and customer segments)\n   - Competitive Strategy (Overview of the company\u2019s strategy to compete in the market, including any unique selling propositions)\n   - Market Positioning (Analysis of the company's position in the market relative to competitors)\n\n3. **Financial Health**\n   - Stock (Current price, Market capitalization, 52 week high/low, dividend, PE ratio, EPS)\n   - Revenue (Latest annual revenue figures and growth trends)\n   - Profit Margins (Gross profit margin, operating profit margin, and net profit margin)\n   <!-- - Debt Levels (Current debt levels and debt-to-equity ratio) -->\n   <!-- - Cash Flow (Overview of cash flow from operating activities, investing activities, and financing activities) -->\n   <!-- - Key Financial Ratios (Current ratio, quick ratio, return on equity (ROE), return on assets (ROA), etc.) -->\n   <!-- - Charts and Graphs (Visual representations of financial data trends over the past few years) -->\n\n4. **Business Opportunities**\n   - Recent Product Launches (Details of any new products or services introduced in the market)\n   - Expansion Plans (Information on plans to enter new markets, open new locations, or increase production capacity)\n   - Market Entry (Strategies and timelines for entering new geographic or demographic markets)\n   - SWOT Analysis\n     - Strengths: Internal attributes that support achieving objectives.\n     - Weaknesses: Internal attributes that challenge achieving objectives.\n     - Opportunities: External factors that the company can capitalize on.\n     - Threats: External factors that could jeopardize the company's success.\n\n5. **Latest News**\n   - Retrieve 10 news articles over the past 6 months with the following details:\n     - Date\n     - Headline\n     - Summary\n     - Link to the source\n   - Ensure the news articles are within the last 6 months.\n\n### Tools to Use:\n1. **DuckDuckGoSearchTools**: Use this tool to search for company profiles and news.\n2. **YFinanceTools**: Use this tool to retrieve financial information about the company.\n",
+        "metadata": {},
+        "model": "gpt-3.5-turbo",
+        "name": "ResearchAgent",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "YFinanceTools",
+                    "description": "This tool enables the agent to retrieve financial information about a company using the Yahoo Finance API.\nIt accepts a company ticker symbol as input and returns relevant financial data such as revenue, profit margins, debt levels, cash flow, and key financial ratios.",
+                    "parameters": {
+                        "properties": {
+                            "ticker_symbol": {
+                                "description": "The ticker symbol of the company to retrieve financial information for.",
+                                "title": "Ticker Symbol",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "ticker_symbol"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "DuckDuckGoSearchTools",
+                    "description": "A tool to perform web searches using DuckDuckGo, specifically retrieving general information or news articles within the last 6 months.",
+                    "parameters": {
+                        "properties": {
+                            "query": {
+                                "description": "The search query to be sent to DuckDuckGo.",
+                                "title": "Query",
+                                "type": "string"
+                            },
+                            "search_type": {
+                                "description": "Type of search: 'info' for general information or 'news' for news articles.",
+                                "title": "Search Type",
+                                "type": "string"
+                            },
+                            "date_range": {
+                                "default": 6,
+                                "description": "The number of months to look back for news articles (only relevant for news search).",
+                                "title": "Date Range",
+                                "type": "integer"
+                            }
+                        },
+                        "required": [
+                            "query",
+                            "search_type"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.3,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0
+    }
+]

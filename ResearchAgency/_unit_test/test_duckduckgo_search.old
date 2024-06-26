@@ -1,0 +1,18 @@
+import unittest
+from DuckDuckGoSearch import DuckDuckGoSearchTool  # Adjust the import path as necessary
+
+class TestDuckDuckGoSearchTool(unittest.TestCase):
+    def test_run(self):
+        # Initialize the tool with a sample query
+        tool = DuckDuckGoSearchTool(query="OpenAI")
+        
+        # Run the tool
+        result = tool.run()
+        
+        # Check that the result is a non-empty string (basic validation)
+        self.assertIsInstance(result, str)
+        self.assertTrue(len(result) > 0)
+        print(result)  # Optional: Print the result to see the output
+
+if __name__ == '__main__':
+    unittest.main()
