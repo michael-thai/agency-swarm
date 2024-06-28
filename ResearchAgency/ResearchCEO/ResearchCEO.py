@@ -20,6 +20,6 @@ class ResearchCEO(Agent):
         return message
 
     def curate_news(self, news_articles):
-        # Implement logic to select the top 5 news articles from the 20 provided
+        # Implement logic to select the top 5 news articles from the 10 provided
         curated_news = sorted(news_articles, key=lambda x: x['relevance'], reverse=True)[:5]
         return curated_news

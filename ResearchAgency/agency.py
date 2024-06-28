@@ -20,9 +20,9 @@ agency = Agency([
         )
                 
 if __name__ == '__main__':
-    # agency.demo_gradio(
-    #     # height=900, 
-    #     debug=True 
-    # )
-    agency.run_demo()    # Terminal version
+    agency.demo_gradio(
+        # height=900, 
+        debug=True 
+    )
+    # agency.run_demo()    # Terminal version
     # completion_output = agency.get_completion("Please search company", abc)    # Terminal version

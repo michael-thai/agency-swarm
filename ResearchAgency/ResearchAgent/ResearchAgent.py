@@ -11,6 +11,7 @@ class ResearchAgent(Agent):
             files_folder="./files",
             schemas_folder="./schemas",
             tools=[DuckDuckGoSearchTools, YFinanceTools],
+
             tools_folder="./tools",
             temperature=0.3,
             max_prompt_tokens=25000,
@@ -21,6 +22,6 @@ class ResearchAgent(Agent):
         return message
 
     def gather_news(self, company_name):
-        # Implement logic to retrieve 20 news articles about the company
+        # Implement logic to retrieve 10 news articles about the company
         news_articles = DuckDuckGoSearchTools.search(company_name, num_results=10, filter='past 6 months')
         return news_articles
